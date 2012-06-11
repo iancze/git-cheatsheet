@@ -1,0 +1,135 @@
+\documentclass{article}
+\usepackage[letterpaper]{geometry}
+
+\title{Git Commands}
+\author{Ian Czekala}
+
+\begin{document}
+\maketitle
+
+\section{Intro}
+Git only tracks changes to files, not storing the actual file.
+
+Good for simple stuff, programming is an iterative process.
+
+\verb|man git-commit| and other flags have a wealth of information.
+
+It's good to keep stable versions while developing. When developing a feature, keep a separate branch.
+
+There are various diff programs you can use. kdiff? See Archwiki.
+git config --global core.diff opendiff (for mac) will show the interactive changes. Familiarize yourself witha diff program. For example, to compare commits, you can do git diff (hash1) (hash2) or alternativel git diff HEAD~1 HEAD~2 (these are the changes from 1 to 2).
+
+This will also work by passing the two branches to git diff. \verb|git diff feature-branch master|
+git config --global core.diff opendiff (for mac) will show the interactive changes. Familiarize yourself witha diff program. For example, to compare commits, you can do git diff (hash1) (hash2) or alternativel git diff HEAD~1 HEAD~2 (these are the changes from 1 to 2).
+
+This will also work by passing the two branches to git diff. \verb|git diff feature-branch master|
+git directories are completely self-contained within a directory, so when you want to tar up a file you can do the whole thing. So, this also works great for synching too, Dropbox or rsync.
+
+GUI's gitk is a nice graphical representation. 
+
+\section{Starting New Projects}
+
+\verb|git init| to create a new \verb|.git| directory.
+
+\verb|git clone url| to clone a new project (located at \verb|url|) to your
+current directory.
+
+\section{Snapshotting Your Project}
+
+DE: purpose of the staging area? You can incrementally stage what you want to commit, besides commiting everything at once.
+
+\verb|git add file1 file2...| is used to add files to your \emph{staging} area
+before you \emph{commit} them to the project. Even if the file was tracked
+before, you still need to add the new files before proceeding, if you want
+their changes committed. You will need to do \verb|add| after each change. Or, simply use \verb|git commit -a| to ignore having to do the add besides the initial add.
+
+Probably will most commonly use \verb|git add .| 
+
+\verb|git status -s| used to list the status of all of the files that the
+project is aware of. The \verb|-s| is for short output.
+
+\verb|git commit| starts \emph{VIM} and then allows you to create a commit
+message. Only files which have been added are committed. However, if instead
+you use \verb|git commit -a| then all previously tracked files are re-added and
+then committed. You would still need to use \verb|git add file1| to add a new
+file to be tracked, however.
+
+\verb|git commit --amend| does not include all recent changes
+
+\verb|git commit --amend -a| will include all recent changes
+
+\verb|git commit -a| will track all changes regardless of whether they have been staged. This is generally a good practice to follow.
+
+\verb|git rebase| allows you to squash your commits down to one when they are trivial.
+
+\verb|git rm --chached file_name| will remove a file that you have added but not committed yet. Keeps file on disk.
+
+\section{Branching and Merging}
+
+By default, there is the \emph{master} branch. Generally, this is good to keep as the stable version.
+
+\verb|git branch| will list all the current branches. The \textbf{*} shows which current branch you are in.
+
+\verb|git branch branch_name| will create a new branch.
+
+\verb|git checkout branch_name| will \emph{checkout} the new branch.
+
+\verb|git checkout commit_hash| will \emph{checkout} a previous commit.
+
+\verb|git checkout -b branch_name| will create a new branch and switch to it
+immediately. This is a ``copy'' of the current branch.
+
+\verb|git branch -d branch_name| will delete an entire branch.
+
+\verb|git rebase -i master| apply changes to/from the (which branch?) since the two branches have brached. Interactive window.
+
+Difference between rebase and merge? Allows you to pick which commits you want, and squashes trivial commits down to a single commit. Pass in branch that you want to pull branches from. Brian recommends using rebase -i over merge.
+
+\verb|git rebase --continue| to move forward with the synch
+
+ALWAYS make a commit before checking out other branches. For example, if you delete a file in one branch and then checkout a different branch, the file will be deleted in the other branch. This essentially merges the commits together?
+
+\section{Tracking}
+
+\verb|git log| shows the commits in chronological order. Newest is at the top.
+
+\verb|git log --stat| shows the commits with all commit messages.
+
+git log --pretty=oneline shows commits w/ title
+git log --pretty=full title + explanation
+git log --pretty=format:'%s' show just the description.
+
+\verb|git reset --hard HEAD~1| to go back to previous change after a commit (move backwards by one commit). \verb|--hard| deletes the most recent change and resets the entire repository.
+
+
+
+\emph{HEAD} is where you are in the list of changes, a pointer to the latest change.
+
+Can also do this on individ files
+
+\verb|git reset -- analysis.py| resets to the last version
+\verb|git reset HEAD~2 analysis|
+
+\section{Diff}
+
+There are various diff programs you can use. kdiff? See Archwiki.
+git config --global core.diff opendiff (for mac) will show the interactive changes. Familiarize yourself witha diff program. For example, to compare commits, you can do 
+
+\verb|git diff (hash1) (hash2)| or alternatively git diff HEAD~1 HEAD~2 (these are the changes from 1 to 2).
+
+\verb|git diff feature-branch master| compare two braches
+
+\section{Git workflow}
+Generally, create a new branch for every issue, bug, or feature you're trying
+to build or fix. That way, you can always have deployable code in the master
+branch. 
+
+\verb|git stash| saves your current changes without commiting them and reverts back to the previous commit. Works for both staged or unstaged pages. Matches the HEAD commit.
+
+\verb|git stash pop| then opens this back up. Think of this as kind of \verb|<C-z>| on the command line.
+
+
+\section{Remote}
+\verb|git remote show origin| will help drastically with showing the status of your configuation with your remote repository.
+\end{document}
+ 
