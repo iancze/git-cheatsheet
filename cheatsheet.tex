@@ -1,11 +1,16 @@
-\documentclass{article}
-\usepackage[letterpaper]{geometry}
+\documentclass[iop,floatfix]{emulateapj}
+%\documentclass[12pt,preprint]{aastex}
 
-\title{Git Commands}
-\author{Ian Czekala}
+\usepackage{apjfonts}
+
+%\documentclass{article}
+%\usepackage[letterpaper]{geometry}
+\usepackage{hyperref}
+
 
 \begin{document}
-\maketitle
+\title{Git Commands}
+\author{Ian Czekala}
 
 \section{Intro}
 Git only tracks changes to files, not storing the actual file.
@@ -87,7 +92,7 @@ Difference between rebase and merge? Allows you to pick which commits you want, 
 
 \verb|git rebase --continue| to move forward with the synch
 
-ALWAYS make a commit before checking out other branches. For example, if you delete a file in one branch and then checkout a different branch, the file will be deleted in the other branch. This essentially merges the commits together?
+ALWAYS make a commit before checking out other branches. For example, if you delete a file in one branch and then checkout a different branch, the file will be deleted in the other branch. This essentially merges the commits together, if there are conflicts than the merge will not happen\footnote{\url{http://www.gitguys.com/topics/switching-branches-without-committing/}}
 
 \section{Tracking}
 
@@ -117,7 +122,7 @@ git config --global core.diff opendiff (for mac) will show the interactive chang
 
 \verb|git diff (hash1) (hash2)| or alternatively git diff HEAD~1 HEAD~2 (these are the changes from 1 to 2).
 
-\verb|git diff feature-branch master| compare two branches
+\verb|git diff feature-branch master| compare two branches. If no text spits out, the most recent COMMITS within each branch are the same.
 
 
 
